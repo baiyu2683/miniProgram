@@ -4,8 +4,6 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="classpath:redis.properties"/>
-
     <bean id="redisProperty" class="org.springframework.core.io.support.ResourcePropertySource">
         <constructor-arg name="location" value="classpath:redis.properties"/>
     </bean>
@@ -37,5 +35,8 @@
         <!-- stringredistemplate 不能存储对象 redisTemplate会使用jdk序列化，这里换成fastjson的-->
         <property name="hashValueSerializer" ref="fastJsonRedisSerializer"/>
         <property name="hashKeySerializer" ref="fastJsonRedisSerializer" />
+    </bean>
+
+    <bean class="org.springframework.data.redis.cache.RedisCacheManager">
     </bean>
 </beans>

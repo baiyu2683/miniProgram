@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${db.driverClass}"/>
+		<property name="url" value="${db.url}"/>
+		<property name="username" value="${db.user}"/>
+		<property name="password" value="${db.password}"/>
+		<property name="initialSize" value="${db.initialSize}"/>
+		<property name="minIdle" value="${db.maxIdle}"/>
+		<property name="maxActive" value="${db.maxActive}"/>
+		<property name="maxWait" value="${db.maxWait}"/>
+		<property name="timeBetweenEvictionRunsMillis" value="${db.timeBetweenEvictionRunsMills}"/>
+		<property name="testWhileIdle" value="${db.testWhileIdle}"/>
+		<property name="testOnBorrow" value="${db.testOnBorrow}"/>
+		<property name="testOnReturn" value="${db.testOnReturn}"/>
+		<property name="poolPreparedStatements" value="${db.poolPreparedStatements}"/>
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${db.maxPoolPreparedStatementPerConnectionSize}"/>
+		<property name="validationQuery" value="${db.validationQuery}"/>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="typeAliasesPackage" value="com.zh.mapper"/>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zh.mapper"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="defaultTimeout" value="30000"/>
+		<property name="dataSource" ref="dataSource"/>
+		<property name="rollbackOnCommitFailure" value="true"/>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

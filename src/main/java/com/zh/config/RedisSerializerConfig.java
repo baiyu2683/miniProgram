@@ -23,7 +23,7 @@ public class RedisSerializerConfig {
     public FastJsonRedisSerializer<Object> fastJsonRedisSerializer() {
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setDateFormat(dateFormat);
-        fastJsonConfig.setCharset(Charset.forName("utf-8"));
+//        fastJsonConfig.setCharset(Charset.forName("utf-8"));
         fastJsonConfig.setSerializerFeatures(new SerializerFeature[]{
             SerializerFeature.WriteDateUseDateFormat
         });

@@ -15,5 +15,11 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <!-- 配置文件加载 -->
+    <context:property-placeholder location="classpath:redis.properties, classpath:database.properties" ignore-unresolvable="true"/>
+
+    <!-- redis 配置-->
     <import resource="redis-context.xml"/>
+    <!-- mybatis配置 -->
+    <import resource="mybatis-context.xml"/>
 </beans>

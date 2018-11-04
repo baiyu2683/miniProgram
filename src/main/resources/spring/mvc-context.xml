@@ -18,6 +18,7 @@
     <!-- 注解 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
+			<!--<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>-->
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
 			<ref bean="fastJsonHttpMessageConverter"/>
 		</mvc:message-converters>
